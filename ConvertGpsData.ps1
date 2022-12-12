@@ -46,9 +46,9 @@ function ConvertGpsData{
         }
 
         #read the RTC-Date and RTC-Time fields (appended with +00:00 to specify it is UTC) and tell it to store as UTC
-        $gps[$i]."RTC-DateTime" =  [datetime]::parseexact($gps[$i]."RTC-Date"+$gps[$i]."RTC-Time"+" +00:00","yy/MM/ddHH:mm:ss zzz",$null).ToUniversalTime()
+        $gps[$i]."RTC-DateTime" =  [datetime]::parseexact($gps[$i]."RTC-Date"+$gps[$i]."RTC-Time"+" +00:00","yy/MM/ddHH:mm:ss zzz",$null).ToUniversalTime().tostring(“yyyy-MM-dd HH:mm:ss”)
         #update datetime column with the relevant timezone info. Daylight savings times will be updated during DST periods if useDST switch is specified
-        $gps[$i].DateTime = [System.TimeZoneInfo]::ConvertTimeBySystemTimeZoneId($gps[$i]."RTC-DateTime",$timezone)
+        $gps[$i].DateTime = [System.TimeZoneInfo]::ConvertTimeBySystemTimeZoneId($gps[$i]."RTC-DateTime",$timezone).tostring(“yyyy-MM-dd HH:mm:ss”)
 
     }
 

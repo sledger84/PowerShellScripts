@@ -10,9 +10,9 @@ function ConvertGpsData{
     #Sets timezone to be Sydney(Daylight savings) if useDST switch is used
     #otherwise use Brisbane timezone
     if ($useDST){
-        $timezone = 'AUS Eastern Standard Time'
+        $timezone = ([System.TimeZoneInfo]::GetSystemTimeZones() | Where-Object -Property DisplayName -like '*Sydney*').Id
     }else{
-        $timezone = 'E. Australia Standard Time'
+        $timezone = ([System.TimeZoneInfo]::GetSystemTimeZones() | Where-Object -Property DisplayName -like '*Brisbane*').Id
     }
 
     #set column widths for each columns 
